@@ -45,16 +45,15 @@ while (flag_continue == True):
         cfg.width = cfg.width_abs
         matrix = [[0 for x in range(cfg.width_abs)] for y in range(cfg.height)]
         cfg.pivot_loc = []
-        
+
         matrix_io.inputer(matrix)
         saver = deepcopy(matrix)
         matrix_func.RREF(matrix)
         matrix_io.printer(matrix)
-        
+
         print("the pivot location is: ")
         print(cfg.pivot_loc)
-        
-        
+
         print("columnspace: ")
         matrix_io.columnspace_printer(saver, cfg.pivot_loc)
 
@@ -67,7 +66,7 @@ while (flag_continue == True):
         print("or")
         print("original: ", end="")
         matrix_io.rowspace_printer(saver, cfg.pivot_loc)
-     
+
         print("determinant:")
         matrix_io.determinant_printer(matrix)
 
