@@ -11,7 +11,7 @@ def RREF(matrix):
     for column in range(cfg.width): # we iterate the entire process by columns of matrix, but no definite row iteration
 
         if (close(matrix[row][column], 1)):#there is a pivot loc = 1
-            print ("pivot")
+            print("pivot")
             row_subtractor(matrix, row, column)
             cfg.pivot_loc.append([row, column])
             row += 1 #move down
@@ -24,7 +24,7 @@ def RREF(matrix):
         if (row == cfg.height):
             break
         matrix_io.printer(matrix)
-        determinant_check(matrix_data) # checking for a 0 row to make the determinat 0
+        determinant_check(matrix) # checking for a 0 row to make the determinat 0
     #the column was all 0 below we move to next column but don't change the row we are on
     return None
 
@@ -36,7 +36,7 @@ def close(a, b):
 def row_flipper(flipping_matrix, a, b):
     flipping_matrix[a], flipping_matrix[b] = flipping_matrix[b], flipping_matrix[a]
     cfg.determinant *= (-1)
-    print ("flip: ",cfg.determinant)
+    print("flip: ", cfg.determinant)
     return None
 
 
@@ -47,11 +47,11 @@ def finder_flipper(working_matrix, start_row, problem_column):
             row_flipper(working_matrix, y, start_row)
             flag_flipped = True
             break #no point to keep looking
-        
+
     for y in range(start_row, cfg.height): # we do the checking for 1 and -1 independantly to prioritize 1 before -1 then random.
         if(close(working_matrix[y][problem_column], -1)): #special case for -1 to resolve the determinant corectly
-            row_divider(working_matrix,start_row,problem_column) # in theory its not nessesary
-            flag_flipped=True
+            row_divider(working_matrix, start_row, problem_column) # in theory its not nessesary
+            flag_flipped = True
             break #no point to keep looking
 
     if (flag_flipped == False):#no good pivot candidate we need to just put a random one in and row divide
@@ -77,7 +77,7 @@ def row_divider(dividing_matrix, pivot_y, pivot_x):
         dividing_matrix[pivot_y][x] = (dividing_matrix[pivot_y][x]) / denominator
     cfg.determinant *= denominator
     int_a_row(dividing_matrix, pivot_y)
-    print ("div:", cfg.determinant)
+    print("div:", cfg.determinant)
     return None
 
 
@@ -100,11 +100,12 @@ def int_a_row(matrix_int, row_num): #intigerizes a whole row of close numbers
             matrix_int[row_num][x] = int(ceil(matrix_int[row_num][x]))
     return None
 
-def determinant_check (matrix):
+
+def determinant_check(matrix):
     flag_number = False
-    for i in range (cfg.width):
-        if (matrix[-1][i] !=0): #last row will be the ones with 0s row if ther is one
+    for i in range(cfg.width):
+        if (matrix[-1][i] != 0): #last row will be the ones with 0s row if ther is one
             flag_number = True
+            break
     if (flag_number == False):
         cfg.determinant = 0
-    
