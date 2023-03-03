@@ -32,6 +32,7 @@ def inputer(inputing_matrix):
 
 #--- basis problem printer functions! ---
 
+
 def rowspace_printer(matrix_data, pivots):
     if(len(cfg.pivot_loc) != 0):
         for count in range(len(pivots)): #this is going down
@@ -44,16 +45,16 @@ def rowspace_printer(matrix_data, pivots):
                 print(")", end=",")
             else:
                 print(")", end="")
-        print("")        
+        print("")
     else:
-        print ("n/a")    
+        print("n/a")
     return None
 
 
 def columnspace_printer(matrix_data, pivots):
     if(len(cfg.pivot_loc) != 0):
         for y in range(cfg.height): #going down
-    
+
             for across in range(len(pivots)):#across
                 if (y == 0):
                     print("/", end="")
@@ -61,8 +62,8 @@ def columnspace_printer(matrix_data, pivots):
                         print(" ", end="")
                     print(matrix_data[y][pivots[across][1]], end=" ")
                     print("\\", end="")
-    
-                elif (y == cfg.height-1):
+
+                elif (y == cfg.height - 1):
                     print("\\", end="")
                     if (matrix_data[y][pivots[across][1]] >= 0):
                         print(" ", end="")
@@ -74,9 +75,9 @@ def columnspace_printer(matrix_data, pivots):
                         print(" ", end="")
                     print(matrix_data[y][pivots[across][1]], end=" ")
                     print("|", end="")
-            print("")        
+            print("")
     else:
-        print ("n/a")    
+        print("n/a")
     return None
 
 
@@ -88,7 +89,7 @@ def nullspace_printer(matrix_data, pivots):
                 for check in range(len(pivots)): #check if the "across" we are on is one with a pivot, we only want non pivots
                     if(across == pivots[check][1]):
                         flag_column_pivot = True
-    
+
                 if (flag_column_pivot == False):
                     if (y == 0):
                         print("/", end="")
@@ -96,8 +97,8 @@ def nullspace_printer(matrix_data, pivots):
                             print(" ", end="")
                         print(matrix_data[y][across], end=" ")
                         print("\\", end="")
-    
-                    elif (y == cfg.height-1):
+
+                    elif (y == cfg.height - 1):
                         print("\\", end="")
                         if (matrix_data[y][across] >= 0):
                             print(" ", end="")
@@ -109,15 +110,15 @@ def nullspace_printer(matrix_data, pivots):
                             print(" ", end="")
                         print(matrix_data[y][across], end=" ")
                         print("|", end="")
-    
-            print("")        
+
+            print("")
     else:
-        print ("n/a") 
+        print("n/a")
     return None
 
-def determinant_printer (matrix_data):
+
+def determinant_printer(matrix_data):
     if (cfg.height == cfg.width):
-        matrix_func.determinant_check(matrix_data)
-        print(cfg.determinant)            
+        print(cfg.determinant)
     else:
-        print ("must be a square matrix!")      
+        print("must be a square matrix!")
