@@ -9,20 +9,34 @@ def RREF(matrix):
 
     row = 0
     for column in range(cfg.width): # we iterate the entire process by columns of matrix, but no definite row iteration
-
-        if (close(matrix[row][column], 1)):#there is a pivot loc = 1
+        if (close(matrix[row][column], 1)):#there is a pivot 
             print("pivot")
             row_subtractor(matrix, row, column)
             cfg.pivot_loc.append([row, column])
             row += 1 #move down
-
+            
+        elif (close(matrix[row][column], -1)):#there is almost  pivot loc = 1
+            print("-1 found")
+            row_divider(matrix,row,column)
+            row_subtractor(matrix, row, column)
+            cfg.pivot_loc.append([row, column])
+            row += 1 #move down        
+       
+        elif (column == cfg.width -1):
+            row_divider(matrix,row,column)
+            row_subtractor(matrix, row, column)
+            cfg.pivot_loc.append([row, column])               
+        
         elif (finder_bool(matrix, row, column) == True): # there is a 0 or a non 1 we should look for a better row but only from below our current row
+            print("moving column")
             finder_flipper(matrix, row, column)
             row_subtractor(matrix, row, column)
             cfg.pivot_loc.append([row, column])
             row += 1#move down
         if (row == cfg.height):
             break
+
+            
         matrix_io.printer(matrix)
         determinant_check(matrix) # checking for a 0 row to make the determinat 0
     #the column was all 0 below we move to next column but don't change the row we are on
@@ -47,13 +61,13 @@ def finder_flipper(working_matrix, start_row, problem_column):
             row_flipper(working_matrix, y, start_row)
             flag_flipped = True
             break #no point to keep looking
-
+    
     for y in range(start_row, cfg.height): # we do the checking for 1 and -1 independantly to prioritize 1 before -1 then random.
         if(close(working_matrix[y][problem_column], -1)): #special case for -1 to resolve the determinant corectly
             row_divider(working_matrix, start_row, problem_column) # in theory its not nessesary
             flag_flipped = True
             break #no point to keep looking
-
+    
     if (flag_flipped == False):#no good pivot candidate we need to just put a random one in and row divide
         for y in range(start_row, cfg.height):
             if(not close(working_matrix[y][problem_column], 0)):
