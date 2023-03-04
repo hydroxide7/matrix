@@ -22,10 +22,11 @@ def RREF(matrix):
             cfg.pivot_loc.append([row, column])
             row += 1 #move down        
        
-        elif (column == cfg.width -1):
-            row_divider(matrix,row,column)
-            row_subtractor(matrix, row, column)
-            cfg.pivot_loc.append([row, column])               
+        elif (column == cfg.width -1):# last row
+            if(not close(matrix [row][column],0)):
+                row_divider(matrix,row,column)
+                row_subtractor(matrix, row, column)
+                cfg.pivot_loc.append([row, column])               
         
         elif (finder_bool(matrix, row, column) == True): # there is a 0 or a non 1 we should look for a better row but only from below our current row
             print("moving column")
