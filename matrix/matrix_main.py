@@ -45,8 +45,15 @@ while (flag_continue == True):
         cfg.width = cfg.width_abs
         matrix = [[0 for x in range(cfg.width_abs)] for y in range(cfg.height)]
         cfg.pivot_loc = []
-
-        matrix_io.inputer(matrix)
+        
+        matrix = [
+        [1,2,3,4],
+        [2,5,7,9],
+        [2,5,8,10],
+        [1,2,3,6]
+        ]
+        
+        #matrix_io.inputer(matrix)
         saver = deepcopy(matrix)
         matrix_func.RREF(matrix)
         matrix_io.printer(matrix)
