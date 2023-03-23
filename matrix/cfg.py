@@ -1,0 +1,11 @@
+precision = 0.00000001
+output_precision = 0.0001
+input_value = None
+width_abs = 0
+width = 0
+height = 0
+pivot_loc = []
+free_var_loc = []
+determinant = 1
+max_denominator = 100
+max_power = 0
