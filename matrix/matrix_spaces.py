@@ -9,78 +9,39 @@ def determinant_check(matrix):
     if (flag_number == False):
         cfg.determinant = 0
     return None
-        
-def nullspace_finder(input_matrix,nullspace_matrix,pivots,free_vars):
-    print (pivots)
-    print (free_vars)
+          
+def nullspace_finder(input_matrix):
+    #print ("start finder ===========")
+    #print (cfg.pivot_loc)
+    #print (cfg.free_var_loc)
+    nullspace_matrix = [[0 for x in range(len(cfg.free_var_loc)+1)] for y in range(cfg.width)] #len(cfg.free_var_loc) + 1 is the num of free vars + a constant
     
     pivot_check = 0
     next_free_var = 1
     for variable_num in range(cfg.width): #going across x1 x2 x3....
-        if (variable_num == pivots[pivot_check][1]): # is pivot
-            print ("pivot")
+        if (variable_num == cfg.pivot_loc[pivot_check][1]): # is pivot
+            #print ("pivot")
             
             if(cfg.width_abs != cfg.width):
                 nullspace_matrix[variable_num][0] = (-1) * input_matrix[variable_num][cfg.width_abs-1]
                 
             counter_fv_loc = 1
-            print ("var_num : ", variable_num )
-            print ("couunter_fv: ", counter_fv_loc )
-            print ("pivot_check: ", pivot_check)
-            for across in free_vars:
-                print ("across: ", across) #the nth x, going across each free var = the y height of the found piot, going across to print each line.
-                nullspace_matrix[variable_num][counter_fv_loc] = (-1) * input_matrix[pivots[pivot_check][0]][across] #i hate this line of code
-                print(nullspace_matrix) 
+            #print ("var_num : ", variable_num )
+            #print ("couunter_fv: ", counter_fv_loc )
+            #print ("pivot_check: ", pivot_check)
+            for across in cfg.free_var_loc:
+                #print ("across: ", across) #the nth x, going across each free var = the y height of the found piot, going across to print each line.
+                nullspace_matrix[variable_num][counter_fv_loc] = (-1) * input_matrix[cfg.pivot_loc[pivot_check][0]][across] #i hate this line of code
+                #print(nullspace_matrix) 
                 counter_fv_loc += 1
-            if(pivot_check < len(pivots)-1): #overflow protection
+            if(pivot_check < len(cfg.pivot_loc)-1): #overflow protection
                 pivot_check += 1
                 
         else: #is a free var
-            print("free")
+            #print("free")
             nullspace_matrix [variable_num][next_free_var] = 1 #his x column was a free variable_num
-            print(nullspace_matrix)
-            if(next_free_var < len(free_vars)): #overflow protection
+            #print(nullspace_matrix)
+            if(next_free_var < len(cfg.free_var_loc)): #overflow protection
                 next_free_var += 1    
-    print(nullspace_matrix)            
-    return None
-        
-"""
-nullspace_matrix = [[0 for x in range(len(cfg.free_var_loc) + 1)] for y in range(cfg.width)]
-
-cfg.width = 3
-cfg.width_abs = 4
-cfg.height = 3    
-nullspace_finder([[1,0,1,5],[0,1,0,6],[0,0,0,0]], [[0,0],[0,0],[0,0]] ,[[0,0],[1,1]], [2])
-"""      
-      
-      
-
-      
-        
-"""
-        if (x == pivots[iteration][1]): # its on a pivot
-            print("on a pivot")
-            if (cfg.width_abs + 1 == cfg.width):
-                nullspace_matrix [x][0] = input_matrix [x][cfg.width_abs-1] 
-            else:
-                nullspace_matrix [x][0] = 0 
-            
-            counter_for_free_var_loc = 0
-            counter = 1 # fill in nullspace correctly
-            for across in free_var_loc:  
-                nullspace_matrix[x][counter] =(-1)*input_matrix [pivots[iteration][0]][across] #this pivots is interpreted as y height
-            
-            print(nullspace_matrix)
-            if (iteration != len(pivots)-1): #out of bound protection 
-                iteration += 1
-       
-        else: #it is on a free var
-            print("skip ", num_free_var)
-            print(nullspace_matrix)
-            nullspace_matrix [x][num_free_var] = 1
-            num_free_var += 1
-            
-            if (num_free_var != len(free_var_loc)-1): #out of bound protection 
-                num_free_var += 1            
-    return None
-"""
+    #print(nullspace_matrix)            
+    return nullspace_matrix
