@@ -1,10 +1,12 @@
+from copy import deepcopy
+
 import cfg
 
 def char_poly_finder(matrix):
     add_depth(matrix)
-    return cofactor_expantion (matrix)
+    return cofactor_expansion (matrix)
 
-def cofactor_expantion(matrix):
+def cofactor_expansion(matrix):
     line_row = 0
     partial_char_eqn = cfg.max_power * [0]
     
@@ -12,7 +14,7 @@ def cofactor_expantion(matrix):
         return poly_sub (poly_multi(matrix[0][0],matrix [1][1]), poly_multi(matrix[0][1],matrix[1][0]))
     else:
         for line_col in range(len(matrix)): #go across that row it is crossed out
-            cofa = poly_multi (matrix[line_row][line_col],cofactor_expantion(smaller_matrix (matrix,line_row,line_col)))
+            cofa = poly_multi (matrix[line_row][line_col],cofactor_expansion(smaller_matrix (matrix,line_row,line_col)))
             
             if ((line_col+line_row)%2==0):
                 partial_char_eqn = poly_add(partial_char_eqn, cofa)
@@ -68,21 +70,10 @@ def add_depth(matrix):
             if(x == y):
                 matrix[y][x][1] = -1
 
-"""
-cfg.height = 5
-cfg.width = 5
-cfg.width_abs = 5
-cfg.max_power = 6 
 
-matrix = [
-[1,2,3,4,5],
-[6,7,8,9,10],
-[11,12,13,14,15],
-[16,17,18,19,20],
-[21,22,23,24,25],
-]
-
-add_depth (matrix)
-#data = find_best_line (matrix)
-print(cofactor_expantion(matrix))
-"""
+def eigen_vec (matrix,eigen_values):
+    copy_matrix = deepcopy(matrix)
+    for i in range(len(eigen_values)):
+        for y in range(len(matrix)):
+            for x in range(len(matrix)):
+                matrix [y][x]
