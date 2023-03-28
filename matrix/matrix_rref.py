@@ -6,24 +6,24 @@ def RREF(matrix):
 
     row = 0
     for column in range(cfg.width): # we iterate the entire process by columns of matrix, but no definite row iteration
-        print("row: ", row)
-        print("col: ", column)
+        #print("row: ", row)
+        #print("col: ", column)
         if (matrix_op.close(matrix[row][column], 1)):#there is a pivot
-            print("pivot")
+            #print("pivot")
             row_subtractor(matrix, row, column)
             cfg.pivot_loc.append([row, column])
             row += 1 #move down
 
         elif (matrix_op.close(matrix[row][column], -1)):#there is almost  pivot loc = 1
-            print("-1 found")
+            #print("-1 found")
             row_divider(matrix, row, column)
             row_subtractor(matrix, row, column)
             cfg.pivot_loc.append([row, column])
             row += 1 #move down
 
         elif (column == cfg.width - 1):# last row
-            print("last_row")
-            print(matrix[row][column])
+            #print("last_row")
+            #print(matrix[row][column])
             if(not matrix_op.close(matrix[row][column], 0)): #it could row divide by 0
                 row_divider(matrix, row, column)
                 row_subtractor(matrix, row, column)
@@ -32,25 +32,25 @@ def RREF(matrix):
                 cfg.free_var_loc.append(column) #make sure if a free var is in the last column it will be added
 
         elif (finder_bool(matrix, row, column) == True): # there is a 0 or a non 1 we should look for a better row but only from below our current row
-            print("moving column")
+            #print("moving column")
             finder_flipper(matrix, row, column)
             row_subtractor(matrix, row, column)
             cfg.pivot_loc.append([row, column])
             row += 1#move down
         else:
-            print("add free var")
+            #print("add free var")
             cfg.free_var_loc.append(column) #saving free var for nullspaces
 
         if (row == cfg.height): #the column was all 0 below we move to next column but don't change the row we are on
             break
-
+        
     return None
 
 
 def row_flipper(flipping_matrix, a, b):
     flipping_matrix[a], flipping_matrix[b] = flipping_matrix[b], flipping_matrix[a]
     cfg.determinant *= (-1)
-    print("flip: ", cfg.determinant)
+    #print("flip: ", cfg.determinant)
     return None
 
 
@@ -91,7 +91,7 @@ def row_divider(dividing_matrix, pivot_y, pivot_x):
         dividing_matrix[pivot_y][x] = (dividing_matrix[pivot_y][x]) / denominator
     cfg.determinant *= denominator
     int_a_row(dividing_matrix, pivot_y)
-    print("div:", cfg.determinant)
+    #print("div:", cfg.determinant)
     return None
 
 
@@ -100,7 +100,7 @@ def row_subtractor(subtracting_matrix, primary_row, pivot_col): #primary row and
         if(y != primary_row): # rows
             multiple = subtracting_matrix[y][pivot_col]
             if(multiple != 0): # we don't want to multiple by 0
-                print("M = ", multiple) #testing line but helpful -----------
+                #print("M = ", multiple) #testing line but helpful -----------
                 for x in range(cfg.width_abs):#going across subtracting
                     subtracting_matrix[y][x] = (subtracting_matrix[y][x]) - multiple * (subtracting_matrix[primary_row][x])
                 int_a_row(subtracting_matrix, y)
