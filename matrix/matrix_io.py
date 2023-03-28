@@ -32,12 +32,12 @@ def inputer(inputing_matrix):
 #--- basis problem printer functions! ---
 
 
-def rowspace_printer(matrix_data, pivots):
+def rowspace_printer(matrix_data):
     if(len(cfg.pivot_loc) != 0):
-        for count in range(len(pivots)): #this is going down
+        for count in range(len(cfg.pivot_loc)): #this is going down
             print("(", end="")
             for x in range(cfg.width): # across
-                print(matrix_data[pivots[count][0]][x], end="")
+                print(matrix_data[cfg.pivot_loc[count][0]][x], end="")
                 if (x != cfg.width_abs - 1): #check for comma placement
                     print(",", end="")
                     
@@ -51,29 +51,29 @@ def rowspace_printer(matrix_data, pivots):
     return None
 
 
-def columnspace_printer(matrix_data, pivots):
+def columnspace_printer(matrix_data):
     if(len(cfg.pivot_loc) != 0):
         for y in range(cfg.height): #going down
 
-            for across in range(len(pivots)):#across
+            for across in range(len(cfg.pivot_loc)):#across
                 if (y == 0):
                     print("/", end="")
-                    if (matrix_data[y][pivots[across][1]] >= 0):
+                    if (matrix_data[y][cfg.pivot_loc[across][1]] >= 0):
                         print(" ", end="")
-                    print(matrix_data[y][pivots[across][1]], end=" ")
+                    print(matrix_data[y][cfg.pivot_loc[across][1]], end=" ")
                     print("\\", end="")
 
                 elif (y == cfg.height - 1):
                     print("\\", end="")
-                    if (matrix_data[y][pivots[across][1]] >= 0):
+                    if (matrix_data[y][cfg.pivot_loc[across][1]] >= 0):
                         print(" ", end="")
-                    print(matrix_data[y][pivots[across][1]], end=" ")
+                    print(matrix_data[y][cfg.pivot_loc[across][1]], end=" ")
                     print("/", end="")
                 else:
                     print("|", end="")
-                    if (matrix_data[y][pivots[across][1]] >= 0):
+                    if (matrix_data[y][cfg.pivot_loc[across][1]] >= 0):
                         print(" ", end="")
-                    print(matrix_data[y][pivots[across][1]], end=" ")
+                    print(matrix_data[y][cfg.pivot_loc[across][1]], end=" ")
                     print("|", end="")
             print("")
     else:
@@ -119,33 +119,13 @@ def parametric_printer(null_matrix_data):
                 
         print("")#new line for next across         
             
-                
-
-    """
-    for x in range(len(cfg.free_var_loc) + 1): # go across print down
-        for y in range(cfg.width):
-            if (y == 0)
-            
-            
-            if (y == 0): #first
-                print ("/", null_matrix_data[y][x],"\\", end = "")
-            elif (y == len(cfg.free_var_loc)-1): #last
-                print ("\\", null_matrix_data[y][x],"/", end = "")
-            else: #middle
-                print ("|", null_matrix_data[y][x],"||", end = "")
-            if (y == half_down and x != 0):
-                if (x > 4):
-                    print ("x",x-1)
-                else:
-                    print (free_var_name[x-1])
-    """
-                
+      
 def nullspace_printer(null_matrix_data):
     #go across then down
     half_down = cfg.width//2
     
     for y in range(cfg.width): #going down, width for nullspace matrix 
-        for across in range(1,len(cfg.free_var_loc)):#across
+        for across in range(1,len(cfg.free_var_loc)+1):#across
             if (y == 0):
                 print("/", end="")
                 if (null_matrix_data[y][across] >= 0):
